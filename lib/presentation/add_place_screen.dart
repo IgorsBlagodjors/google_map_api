@@ -23,6 +23,8 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
   File? _selectedImage;
+  String? thisLat;
+  String? thisLong;
   late final PlacesListCubit _cubit;
 
   @override
@@ -46,32 +48,41 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            TextField(
-              decoration: const InputDecoration(
-                labelText: 'Title',
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
+                controller: _titleController,
               ),
-              controller: _titleController,
-            ),
-            const SizedBox(height: 16),
-            ImageInput(
-              onPickImage: (image) {
-                _selectedImage = image;
-              },
-            ),
-            const SizedBox(height: 16),
-            LocationInput.withCubit(),
-            const SizedBox(height: 16),
-            ElevatedButton.icon(
-              onPressed: () {
-                _cubit.addTitle(_titleController.text, _selectedImage!);
-                Navigator.of(context).pop(true);
-              },
-              icon: const Icon(Icons.add),
-              label: const Text('Add Place'),
-            )
-          ],
+              const SizedBox(height: 16),
+              ImageInput(
+                onPickImage: (image) {
+                  _selectedImage = image;
+                },
+              ),
+              const SizedBox(height: 16),
+              LocationInput(
+                locationCallback: (lat, long) {
+                  setState(() {
+                    thisLat = lat;
+                    thisLong = long;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              ElevatedButton.icon(
+                onPressed: () {
+                  _cubit.addTitle(_titleController.text, _selectedImage!);
+                  Navigator.of(context).pop(true);
+                },
+                icon: const Icon(Icons.add),
+                label: const Text('Add Place'),
+              ),
+            ],
+          ),
         ),
       ),
     );
