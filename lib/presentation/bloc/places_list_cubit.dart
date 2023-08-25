@@ -8,8 +8,6 @@ import 'package:logger/logger.dart';
 class PlacesListCubit extends Cubit<PlacesListState> {
   final PlacesRepository _placesRepository;
   final logger = Logger();
-  String? lat;
-  String? long;
 
   PlacesListCubit(this._placesRepository)
       : super(
@@ -23,7 +21,6 @@ class PlacesListCubit extends Cubit<PlacesListState> {
   Future<void> addTitle(String title, File image) async {
     emit(state.copyWith(isLoading: true));
     try {
-      print('ZAPISIVARM $long, $lat');
       await _placesRepository.addTitle(title, image);
     } on Exception catch (ex, stacktrace) {
       logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');
