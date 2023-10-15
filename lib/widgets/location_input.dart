@@ -12,6 +12,10 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   String? lat;
   String? long;
+  String? test;
+  String? test2;
+  String? test3;
+  String? test4;
 
   var _isGettingPosition = false;
 
