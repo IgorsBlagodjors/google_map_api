@@ -16,6 +16,7 @@ class PlacesList extends StatelessWidget {
           backgroundImage: FileImage(places[index].image),
         ),
         title: Text(places[index].title),
+        subtitle: Text(places[index].adress),
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(

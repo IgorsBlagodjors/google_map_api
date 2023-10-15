@@ -25,6 +25,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   File? _selectedImage;
   String? thisLat;
   String? thisLong;
+  String? adress;
   late final PlacesListCubit _cubit;
 
   @override
@@ -75,8 +76,11 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
               const SizedBox(height: 16),
               ElevatedButton.icon(
                 onPressed: () {
-                  _cubit.addTitle(_titleController.text, _selectedImage!);
-                  Navigator.of(context).pop(true);
+                  _cubit
+                      .addTitle(_titleController.text, _selectedImage!)
+                      .then((value) {
+                    Navigator.of(context).pop(true);
+                  });
                 },
                 icon: const Icon(Icons.add),
                 label: const Text('Add Place'),

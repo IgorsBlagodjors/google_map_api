@@ -3,7 +3,7 @@ import 'package:google_map_api/domain/place_class.dart';
 
 class PlacesListState extends Equatable {
   final List<Place> items;
-  final String adress;
+
   final bool isLoading;
   final bool isError;
 
@@ -11,7 +11,6 @@ class PlacesListState extends Equatable {
     required this.items,
     required this.isLoading,
     required this.isError,
-    required this.adress,
   });
 
   PlacesListState copyWith({
@@ -24,9 +23,8 @@ class PlacesListState extends Equatable {
         items: items ?? this.items,
         isLoading: isLoading ?? this.isLoading,
         isError: isError ?? this.isError,
-        adress: adress ?? this.adress,
       );
 
   @override
-  List<Object?> get props => [items, isLoading, isError, adress];
+  List<Object?> get props => [items, isLoading, isError];
 }

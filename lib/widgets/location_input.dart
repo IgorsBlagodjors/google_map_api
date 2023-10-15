@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_map_api/data/api_key.dart';
 
 class LocationInput extends StatefulWidget {
   final void Function(String lat, String long) locationCallback;
@@ -41,6 +42,7 @@ class _LocationInputState extends State<LocationInput> {
         desiredAccuracy: LocationAccuracy.best);
     long = locationData.longitude.toString();
     lat = locationData.latitude.toString();
+    print('LONG $long, Lat $lat, !!!!!!!!!!!!!!!!!!');
 
     setState(() {
       _isGettingPosition = false;
@@ -59,7 +61,7 @@ class _LocationInputState extends State<LocationInput> {
     }
     if (lat != null && long != null && !_isGettingPosition) {
       viewContent = Image.network(
-        'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$long&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$long&key=AIzaSyChX4NdABW4hLxgB-exR7IsxX-fP1CpR-E',
+        'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$long&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$long&key=$apiKey',
         fit: BoxFit.cover,
         width: double.infinity,
         height: double.infinity,
