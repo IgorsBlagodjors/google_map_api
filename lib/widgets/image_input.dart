@@ -5,7 +5,6 @@ import 'dart:io';
 class ImageInput extends StatefulWidget {
   final void Function(File image) onPickImage;
   const ImageInput({super.key, required this.onPickImage});
-
   @override
   State<ImageInput> createState() => _ImageInputState();
 }
