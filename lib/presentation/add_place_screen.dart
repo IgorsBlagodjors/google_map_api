@@ -23,8 +23,8 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
   File? _selectedImage;
-  String? thisLat;
-  String? thisLong;
+  late String thisLat;
+  late String thisLong;
   String? adress;
   late final PlacesListCubit _cubit;
 
@@ -77,7 +77,12 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
               ElevatedButton.icon(
                 onPressed: () {
                   _cubit
-                      .addTitle(_titleController.text, _selectedImage!)
+                      .addTitle(
+                    _titleController.text,
+                    _selectedImage!,
+                    thisLat,
+                    thisLong,
+                  )
                       .then((value) {
                     Navigator.of(context).pop(true);
                   });

@@ -17,10 +17,11 @@ class PlacesListCubit extends Cubit<PlacesListState> {
             isError: false,
           ),
         );
-  Future<void> addTitle(String title, File image) async {
+  Future<void> addTitle(
+      String title, File image, String lat, String long) async {
     emit(state.copyWith(isLoading: true));
     try {
-      await _placesRepository.addTitle(title, image);
+      await _placesRepository.addTitle(title, image, lat, long);
     } on Exception catch (ex, stacktrace) {
       logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');
       emit(state.copyWith(isError: true, isLoading: false));
