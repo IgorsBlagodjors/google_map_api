@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_map_api/domain/place_class.dart';
-import 'package:google_map_api/presentation/place_detail_page.dart';
+import 'package:google_map_api/presentation/screens/place_detail_page.dart';
 
 class PlacesList extends StatelessWidget {
   const PlacesList({super.key, required this.places});
@@ -16,7 +16,7 @@ class PlacesList extends StatelessWidget {
           backgroundImage: FileImage(places[index].image),
         ),
         title: Text(places[index].title),
-        subtitle: Text(places[index].adress),
+        subtitle: Text(places[index].location.adress),
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(

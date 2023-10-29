@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_map_api/presentation/add_place_screen.dart';
 import 'package:google_map_api/presentation/bloc/places_list_cubit.dart';
 import 'package:google_map_api/presentation/bloc/places_list_state.dart';
+import 'package:google_map_api/presentation/screens/add_place_screen.dart';
 import 'package:google_map_api/widgets/places_list_view.dart';
 
 class PlacesListScreen extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_map_api/data/google_map_api_client.dart';
 import 'package:google_map_api/domain/places_repository.dart';
-import 'package:google_map_api/presentation/places.dart';
+import 'package:google_map_api/presentation/screens/places.dart';
 
 import 'data/in_memory_place_repository.dart';
 

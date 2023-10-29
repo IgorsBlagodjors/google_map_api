@@ -26,8 +26,9 @@ class PlaceDetailPage extends StatelessWidget {
             child: Column(
               children: [
                 CircleAvatar(
-                    radius: 70,
-                    backgroundImage: NetworkImage(place.locationImage)),
+                  radius: 70,
+                  backgroundImage: NetworkImage(place.location.locationImage),
+                ),
                 Container(
                   alignment: Alignment.center,
                   padding:
@@ -43,7 +44,7 @@ class PlaceDetailPage extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    place.adress,
+                    place.location.adress,
                     style: const TextStyle(
                       color: Colors.white,
                     ),
