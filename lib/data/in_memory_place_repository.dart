@@ -16,7 +16,7 @@ class InMemoryPlaceRepository implements PlacesRepository {
 
   @override
   Future<void> addTitle(
-      String title, File image, String lat, String long) async {
+      String title, File image, double lat, double long) async {
     final newPlace = Place(
       title: title,
       image: image,

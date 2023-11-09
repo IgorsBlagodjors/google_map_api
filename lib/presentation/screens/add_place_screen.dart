@@ -23,8 +23,8 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
   File? _selectedImage;
-  late String thisLat;
-  late String thisLong;
+  late double thisLat;
+  late double thisLong;
   String? adress;
   late final PlacesListCubit _cubit;
 

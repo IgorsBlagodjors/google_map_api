@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_map_api/domain/place_class.dart';
+import 'package:google_map_api/presentation/screens/map.dart';
 
 class PlaceDetailPage extends StatelessWidget {
   final Place place;
@@ -25,9 +26,21 @@ class PlaceDetailPage extends StatelessWidget {
             right: 0,
             child: Column(
               children: [
-                CircleAvatar(
-                  radius: 70,
-                  backgroundImage: NetworkImage(place.location.locationImage),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MapScreen(
+                          location: place.location,
+                          isSelecting: false,
+                        ),
+                      ),
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundImage: NetworkImage(place.location.locationImage),
+                  ),
                 ),
                 Container(
                   alignment: Alignment.center,

@@ -18,7 +18,7 @@ class PlacesListCubit extends Cubit<PlacesListState> {
           ),
         );
   Future<void> addTitle(
-      String title, File image, String lat, String long) async {
+      String title, File image, double lat, double long) async {
     emit(state.copyWith(isLoading: true));
     try {
       await _placesRepository.addTitle(title, image, lat, long);
