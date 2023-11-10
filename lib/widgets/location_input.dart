@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_map_api/data/api_key.dart';
+import 'package:google_map_api/data/map_url.dart';
 import 'package:google_map_api/presentation/screens/map.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -44,7 +44,6 @@ class _LocationInputState extends State<LocationInput> {
         desiredAccuracy: LocationAccuracy.best);
     long = locationData.longitude;
     lat = locationData.latitude;
-    print('LONG $long, Lat $lat, !!!!!!!!!!!!!!!!!!');
 
     setState(() {
       _isGettingPosition = false;
@@ -79,7 +78,7 @@ class _LocationInputState extends State<LocationInput> {
     }
     if (lat != null && long != null && !_isGettingPosition) {
       viewContent = Image.network(
-        'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$long&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$long&key=$apiKey',
+        buildStaticMapUrl(lat!, long!),
         fit: BoxFit.cover,
         width: double.infinity,
         height: double.infinity,
