@@ -9,8 +9,11 @@ class GoogleMapApiClient {
   GoogleMapApiClient(this._dio);
 
   Future<List<ResponseClass>> getAdres(double lat, double long) async {
-    final response = await _dio.get(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$long&key=$apiKey');
+    final queryParam = {
+      'latlng': '$lat,$long',
+      'key': apiKey,
+    };
+    final response = await _dio.get('', queryParameters: queryParam);
     final fullResponse = AdresResponse.fromJson(response.data);
     return fullResponse.toModel();
   }

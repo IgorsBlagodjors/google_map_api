@@ -16,12 +16,15 @@ class _LocationInputState extends State<LocationInput> {
   double? lat;
   double? long;
 
-  var _isGettingPosition = false;
+  bool _isGettingPosition = false;
 
-  Future<Position> _getCurrentLocation() async {
+  Future<void> _getCurrentLocation() async {
+    setState(() {
+      _isGettingPosition = true;
+    });
     Position locationData;
-    bool serviseEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviseEnabled) {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
       return Future.error('Location services are disabled');
     }
 
@@ -36,24 +39,20 @@ class _LocationInputState extends State<LocationInput> {
     if (permission == LocationPermission.deniedForever) {
       return Future.error('Location permissions permamently denied');
     }
-    setState(() {
-      _isGettingPosition = true;
-    });
 
     locationData = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
-    long = locationData.longitude;
-    lat = locationData.latitude;
-
+    setState(() {
+      long = locationData.longitude;
+      lat = locationData.latitude;
+    });
+    widget.locationCallback(lat ?? 0, long ?? 0);
     setState(() {
       _isGettingPosition = false;
     });
-    widget.locationCallback(lat ?? 0, long ?? 0);
-
-    return await Geolocator.getCurrentPosition();
   }
 
-  void selestOnMap() async {
+  void selectOnMap() async {
     final pickedLocation = await Navigator.of(context).push<LatLng>(
       MaterialPageRoute(
         builder: (context) => const MapScreen(),
@@ -71,7 +70,7 @@ class _LocationInputState extends State<LocationInput> {
 
   @override
   Widget build(BuildContext context) {
-    Widget viewContent = const Text('No location choosen');
+    Widget viewContent = const Text('No location chosen');
 
     if (_isGettingPosition) {
       viewContent = const CircularProgressIndicator();
@@ -107,7 +106,7 @@ class _LocationInputState extends State<LocationInput> {
               label: const Text('Get current location'),
             ),
             TextButton.icon(
-              onPressed: selestOnMap,
+              onPressed: selectOnMap,
               icon: const Icon(Icons.map),
               label: const Text('Select on map'),
             ),

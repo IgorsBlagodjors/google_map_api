@@ -16,16 +16,17 @@ class PlacesList extends StatelessWidget {
       itemBuilder: (_, index) => Dismissible(
         key: ValueKey(places[index]),
         onDismissed: (_) {
+          final deletedPlace = places[index];
           BlocProvider.of<PlacesListCubit>(context)
               .removePlace(places[index].id);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               duration: const Duration(seconds: 5),
-              content: Text('${places[index].title} DELETED'),
+              content: Text('${deletedPlace.title} DELETED'),
               action: SnackBarAction(
                 label: 'UNDO',
                 onPressed: () {
-                  BlocProvider.of<PlacesListCubit>(context).undo();
+                  BlocProvider.of<PlacesListCubit>(context).undo(deletedPlace);
                 },
               ),
             ),

@@ -8,7 +8,9 @@ import 'package:google_map_api/presentation/screens/places.dart';
 import 'data/in_memory_place_repository.dart';
 
 void main() {
-  final dio = Dio();
+  final dio = Dio(
+    BaseOptions(baseUrl: 'https://maps.googleapis.com/maps/api/geocode/json'),
+  );
   dio.interceptors.add(
     LogInterceptor(
       responseBody: true,

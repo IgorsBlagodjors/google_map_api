@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_map_api/domain/place_class.dart';
 import 'package:google_map_api/domain/places_repository.dart';
 import 'package:google_map_api/presentation/bloc/places_list_state.dart';
 import 'package:logger/logger.dart';
@@ -49,10 +50,10 @@ class PlacesListCubit extends Cubit<PlacesListState> {
     }
   }
 
-  Future<void> undo() async {
+  Future<void> undo(Place deletedPlace) async {
     emit(state.copyWith(isLoading: true));
     try {
-      await _placesRepository.undo();
+      await _placesRepository.undo(deletedPlace);
       getPlace();
     } on Exception catch (ex, stacktrace) {
       logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');

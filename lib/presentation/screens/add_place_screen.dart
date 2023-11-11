@@ -23,8 +23,8 @@ class AddPlaceScreen extends StatefulWidget {
 class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _titleController = TextEditingController();
   File? _selectedImage;
-  late double thisLat;
-  late double thisLong;
+  double? thisLat;
+  double? thisLong;
   String? adress;
   late final PlacesListCubit _cubit;
 
@@ -67,25 +67,31 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
               const SizedBox(height: 16),
               LocationInput(
                 locationCallback: (lat, long) {
-                  setState(() {
-                    thisLat = lat;
-                    thisLong = long;
-                  });
+                  thisLat = lat;
+                  thisLong = long;
                 },
               ),
               const SizedBox(height: 16),
               ElevatedButton.icon(
                 onPressed: () {
-                  _cubit
-                      .addPlace(
-                    _titleController.text,
-                    _selectedImage!,
-                    thisLat,
-                    thisLong,
-                  )
-                      .then((value) {
-                    Navigator.of(context).pop(true);
-                  });
+                  if (_titleController.text.isEmpty) {
+                    showMessage('Enter title');
+                  } else if (_selectedImage == null) {
+                    showMessage('Take a picture');
+                  } else if (thisLat == null && thisLong == null) {
+                    showMessage('Choose location');
+                  } else {
+                    _cubit
+                        .addPlace(
+                      _titleController.text,
+                      _selectedImage!,
+                      thisLat!,
+                      thisLong!,
+                    )
+                        .then((value) {
+                      Navigator.of(context).pop(true);
+                    });
+                  }
                 },
                 icon: const Icon(Icons.add),
                 label: const Text('Add Place'),
@@ -93,6 +99,21 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void showMessage(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          msg,
+          style: const TextStyle(
+            color: Colors.red,
+            fontSize: 20,
+          ),
+        ),
+        duration: const Duration(seconds: 3),
       ),
     );
   }

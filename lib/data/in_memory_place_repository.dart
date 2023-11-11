@@ -13,7 +13,6 @@ class InMemoryPlaceRepository implements PlacesRepository {
   final String _myListKey = 'myListKey';
   List<Place> myList = [];
   late int index;
-  late Place lastDeletedPlace;
 
   @override
   Future<List<Place>> getPlace() async {
@@ -53,7 +52,6 @@ class InMemoryPlaceRepository implements PlacesRepository {
   @override
   Future<void> removePlace(String id) async {
     index = myList.indexWhere((element) => element.id == id);
-    lastDeletedPlace = myList[index];
     myList.removeWhere((element) => element.id == id);
     final serializedList =
         myList.map((place) => jsonEncode(place.toJson())).toList();
@@ -62,8 +60,8 @@ class InMemoryPlaceRepository implements PlacesRepository {
   }
 
   @override
-  Future<void> undo() async {
-    myList.insert(index, lastDeletedPlace);
+  Future<void> undo(Place deletedPlace) async {
+    myList.insert(index, deletedPlace);
     final sharedPrefs = await SharedPreferences.getInstance();
     final serializedList =
         myList.map((place) => jsonEncode(place.toJson())).toList();
