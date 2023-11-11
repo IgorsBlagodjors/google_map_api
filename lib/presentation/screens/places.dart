@@ -24,13 +24,13 @@ class _PlacesListScreenState extends State<PlacesListScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _cubit.getTitle();
+    _cubit.getPlace();
   }
 
   @override
   void initState() {
     _cubit = BlocProvider.of<PlacesListCubit>(context);
-    _cubit.getTitle();
+    _cubit.getPlace();
     super.initState();
   }
 
@@ -61,7 +61,7 @@ class _PlacesListScreenState extends State<PlacesListScreen> {
                     ),
                   );
                   if (result == true) {
-                    _cubit.getTitle();
+                    _cubit.getPlace();
                   }
                 },
                 icon: const Icon(Icons.add),

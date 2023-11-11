@@ -17,25 +17,45 @@ class PlacesListCubit extends Cubit<PlacesListState> {
             isError: false,
           ),
         );
-  Future<void> addTitle(
+  Future<void> addPlace(
       String title, File image, double lat, double long) async {
     emit(state.copyWith(isLoading: true));
     try {
-      await _placesRepository.addTitle(title, image, lat, long);
+      await _placesRepository.addPlace(title, image, lat, long);
     } on Exception catch (ex, stacktrace) {
       logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');
       emit(state.copyWith(isError: true, isLoading: false));
     }
   }
 
-  Future<void> getTitle() async {
+  Future<void> getPlace() async {
     emit(state.copyWith(isLoading: true));
     try {
-      final response = await _placesRepository.getTitle();
+      final response = await _placesRepository.getPlace();
       emit(state.copyWith(items: response, isLoading: false));
     } on Exception catch (ex, stacktrace) {
       logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');
       emit(state.copyWith(isError: true, isLoading: false));
+    }
+  }
+
+  Future<void> removePlace(String id) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      await _placesRepository.removePlace(id);
+      getPlace();
+    } on Exception catch (ex, stacktrace) {
+      logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');
+    }
+  }
+
+  Future<void> undo() async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      await _placesRepository.undo();
+      getPlace();
+    } on Exception catch (ex, stacktrace) {
+      logger.e('Failed to load: ex $ex, stacktrace: $stacktrace');
     }
   }
 }

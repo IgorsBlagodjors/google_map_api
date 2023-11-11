@@ -9,6 +9,26 @@ part 'place_class.g.dart';
 
 const uuid = Uuid();
 
+@JsonSerializable(converters: [FileConverter()])
+class Place extends Equatable {
+  final String id;
+  final String title;
+  final File image;
+  final PlaceLocation location;
+
+  Place({
+    required this.title,
+    required this.image,
+    required this.location,
+  }) : id = uuid.v4();
+
+  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
+  Map<String, dynamic> toJson() => _$PlaceToJson(this);
+
+  @override
+  List<Object?> get props => [id, title, image, location];
+}
+
 @JsonSerializable()
 class PlaceLocation {
   final double latitude;
@@ -38,24 +58,4 @@ class FileConverter implements JsonConverter<File, String> {
   String toJson(File file) {
     return file.path;
   }
-}
-
-@JsonSerializable(converters: [FileConverter()])
-class Place extends Equatable {
-  final String id;
-  final String title;
-  final File image;
-  final PlaceLocation location;
-
-  Place({
-    required this.title,
-    required this.image,
-    required this.location,
-  }) : id = uuid.v4();
-
-  factory Place.fromJson(Map<String, dynamic> json) => _$PlaceFromJson(json);
-  Map<String, dynamic> toJson() => _$PlaceToJson(this);
-
-  @override
-  List<Object?> get props => [id, title, image, location];
 }

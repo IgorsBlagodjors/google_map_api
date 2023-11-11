@@ -77,7 +77,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
               ElevatedButton.icon(
                 onPressed: () {
                   _cubit
-                      .addTitle(
+                      .addPlace(
                     _titleController.text,
                     _selectedImage!,
                     thisLat,
